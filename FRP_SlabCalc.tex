@@ -1,0 +1,245 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering Calculation Paper
+% LaTeX Template
+% Version 1.0 (20/1/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Dmitry Volynkin (dim_voly@yahoo.com.au)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt,a4paper]{article} % Use A4 paper with a 12pt font size - different paper sizes will require manual recalculation of page margins and border positions
+
+\usepackage{marginnote} % Required for margin notes
+\usepackage{wallpaper} % Required to set each page to have a background
+\usepackage{lastpage} % Required to print the total number of pages
+\usepackage[left=1.3cm,right=4.6cm,top=1.8cm,bottom=4.0cm,marginparwidth=3.4cm]{geometry} % Adjust page margins
+\usepackage{amsmath} % Required for equation customization
+\usepackage{amssymb} % Required to include mathematical symbols
+\usepackage{xcolor} % Required to specify colors by name
+
+\usepackage{fancyhdr} % Required to customize headers
+\setlength{\headheight}{80pt} % Increase the size of the header to accommodate meta-information
+\pagestyle{fancy}\fancyhf{} % Use the custom header specified below
+\renewcommand{\headrulewidth}{0pt} % Remove the default horizontal rule under the header
+
+\setlength{\parindent}{0cm} % Remove paragraph indentation
+\newcommand{\tab}{\hspace*{2em}} % Defines a new command for some horizontal space
+
+\newcommand\BackgroundStructure{ % Command to specify the background of each page
+\setlength{\unitlength}{1mm} % Set the unit length to millimeters
+
+\setlength\fboxsep{0mm} % Adjusts the distance between the frameboxes and the borderlines
+\setlength\fboxrule{0.5mm} % Increase the thickness of the border line
+\put(10, 10){\fcolorbox{black}{white!10}{\framebox(155,247){}}} % Main content box
+\put(165, 10){\fcolorbox{black}{yellow!10}{\framebox(37,247){}}} % Margin box
+\put(10, 262){\fcolorbox{black}{blue!10}{\framebox(192, 25){}}} % Header box
+\put(175, 263){\includegraphics[height=23mm,keepaspectratio]{IITB_Logo.png}} % Logo box - maximum height/width: 
+}
+
+%----------------------------------------------------------------------------------------
+%	HEADER INFORMATION
+%----------------------------------------------------------------------------------------
+
+\fancyhead[L]{\begin{tabular}{l r | l r} % The header is a table with 4 columns
+\textbf{Project} & FRP Strengthening & \textbf{Page} & \thepage/\pageref{LastPage} \\ % Project name and page count
+\textbf{Job}  \textbf{Number} & 10-23 \\ % Job number and last updated date
+\textbf{Element} & Slab-S1 & \textbf{Date} & \today \\ % Version and reviewed date
+\textbf{Designer} & MNS & \textbf{Reviewer} & Prof. MNS \\ % Designer and reviewer
+\end{tabular}}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\AddToShipoutPicture{\BackgroundStructure} % Set the background of each page to that specified above in the header information section
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONTENT
+%----------------------------------------------------------------------------------------
+
+\section{Input Parameters} 
+
+\marginnote{All units are \\ \textbf{[kN, mm]}}
+
+The inputs used in this analysis are listed below
+
+\begin{center}
+    \begin{tabular}{ l l c l }
+ 1 & Grade of concrete (cube strength) $f_{ck}$ & = & 50 MPa \\ 
+ 2 & Grade of steel $f_{y}$ & = & 500 MPa \\  
+ 3 & Thickness of slab $D$ & = & 200 mm   \\ 
+ 4 & Cover to slab $d'$ & = & 25 mm   \\ 
+ 5 & Diameter of bar provided $\phi$ & = & 10 mm   \\ 
+ 6 & Spacing of the bars provided $s_{pro}$ & = & 100 mm   \\ 
+ 7 & Type of fiber & = & Carbon   \\ 
+ 8 & Exposure Condition & = & Interior   \\ 
+ 9 & Ultimate strength of fiber $f_{fu}^*$ & = & 2900 MPa   \\ 
+ \marginnote{As per manufacturer's specifications}
+ 10 & Ultimate strength of fiber $\epsilon_{fu}^*$ & = & 0.018   \\
+ 11 & New design moment $M_{new}$ & = & 115.08 kNm   \\
+ 11 & Moment due to dead load $M_{DL}$ & = & 12.97 kNm   \\
+ 12 & No of fiber ply $n$ & = & 1   \\
+ 13 & Thickness of fiber $t_f$ & = & 3 mm   \\
+ 14 & Width of fiber $w_f$ & = & 243 mm   \\
+ 15 & Modulus of elasticity of fiber $E_{f}$ & = & 165000 MPa   \\
+\end{tabular}    
+\end{center}
+
+\section{Calculations} 
+
+\subsection{FRP system properties}
+
+\tab Design ultimate tensile strength of FRP ($f_{fu}$) = $C_E \times f_{fu}^*$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $var-CEval \times var-f_fu_star$ = 2755 MPa \\[8pt]
+
+\tab Design rupture strain of FRP ($\epsilon_{fu}$) = $C_E \times \epsilon_{fu}^*$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $var-CEval \times \epsilon_{fu}^*$ = 0.0171 \\[8pt]
+
+\tab Net fiber area ($A_f$) = $n \times t_f \times w_f$ = 729 $mm^2$ \\[8pt]
+
+\subsection{Concrete properties}
+
+\tab Concrete cylinder strength $f_c$ = $0.8 \times f_{ck}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $0.8 \times var-f_ck$ = 42.5 MPa \\[8pt]
+
+\tab Modulus of elasticity of concrete $E_c$ = $4700 \sqrt{f_c}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $4700 \sqrt{var-fc}$ = 30640.25 MPa \\[8pt]
+
+\tab Area of steel provided $A_{s,provd}$ = $\frac{\pi}{4}\phi^2 \times \frac{1000}{s}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $\frac{\pi}{4}\phi^2 \times \frac{1000}{s}$ = 864 $mm^2$ \\[8pt] 
+
+\subsection{Determination of existing state of strain on the soffit}
+
+\tab Overall depth of slab $d_f$ = 200 mm \\[8pt]
+
+\tab Effective depth $d$ = $d_f - d' - \phi/2$ \\[8pt]
+\tab\tab\tab\tab\tab = $d_f - d' - \phi/2$ = 170 mm \\[8pt]
+
+\tab Modular ratio $m$ = $\frac{280}{3\sigma_{cbc}} $ \\[8pt]
+\tab\tab\tab\tab\tab = $\frac{280}{3\sigma_{cbc}} $ = 5.6 \\[8pt]
+
+
+\tab Existing percentage area of reinforcing steel $pt_{provided}$ = $\frac{100\times A_{s,provd}}{1000\times d}$ \\[8pt]
+\tab\tab\tab\tab\tab = $\frac{100\times A_{s,provd}}{1000\times d}$ = 0.51 \\[8pt]
+
+\tab\tab\tab\tab\tab $\rho$ = $\frac{pt_{provided}}{100}$ \\[8pt]
+\tab\tab\tab\tab\tab $\rho$ = $\frac{pt_{provided}}{100}$ = 0.0051 \\[8pt]
+
+\tab Crack section analysis of existing beam \\[8pt]
+\tab\tab\tab\tab\tab k = $s\sqrt{{2 \times \rho \times m}+{ \rho \times m \times \rho \times m} }$ = 0.21 \\[8pt]
+\tab\tab\tab\tab\tab kd = $k \times d$ = 35.7 mm \\[8pt]
+
+\tab\tab\tab\tab\tab $I_{cr} = 102427114 mm^4$ \\[8pt]
+
+\tab Moment due to Dead load $M_{DL}$ =12.97 KNm \\[8pt]
+
+\tab Existing state of strain on the soffit $ \epsilon_{bi}$  = $\frac {M_{DL} \times ({d_f} - k d)}{I_{cr} \times E_c}  = 0.000679$ \\[8pt] 
+\tab\tab\tab\tab\tab = $\frac {M_{DL} \times ({d_f} - k d)}{I_{cr} \times E_c}  = 0.000679$ \\[8pt] 
+
+\subsection{Determine the design strain of the FRP system}
+
+\tab The design strain of FRP accounting for debonding failure mode $ \epsilon_{fd} $ \\[8pt]
+
+\tab\tab\tab\tab\tab  $\epsilon_{fd}$ = ${0.41 \times \sqrt{\frac{f_c^{'} }{ 2 \times E_f \times t_f}} } $ \\[8pt] 
+
+\tab\tab\tab\tab\tab  = ${0.41 \times \sqrt{\frac{f_c^{'} }{ 2 \times E_f \times t_f}} } $ = 0.0038 \\[8pt] 
+
+\tab\tab\tab\tab\tab $Limiting \epsilon_{fd}$ = 0.01539
+\marginnote{SAFE}
+
+\subsection{Estimate c, the depth of neutral axis} 
+
+\tab Assumed depth of Neutral axis  $c$ = 46 mm 
+\marginnote{Error less than 1 percentage }  \\[8pt] 
+
+\tab $\epsilon_{c'}$ =  ${1.7 \times \frac{f_c}{E_c}}$ \\[8pt] 
+
+\tab\tab\tab\tab\tab =  ${1.7 \times \frac{f_c}{E_c}}$ = 0.002358 \\[8pt]
+
+\tab $\beta_{1}$ = $\frac{4 \times \epsilon_{c'} - 0.003}{6 \times \epsilon_{c'}-{2 \times 0.003 }}$
+
+\tab\tab\tab\tab\tab = $\frac{4 \times \epsilon_{c'} - 0.003}{6 \times \epsilon_{c'}-{2 \times 0.003 }}$ = 0.7893953 \\[8pt]
+
+\tab $\alpha_{1}$ = $\frac{3 \times \epsilon_{c'} \times 0.003 - 0.003^2}{3 \times \beta_{1} \times \epsilon_{c'}^2}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $\frac{3 \times \epsilon_{c'} \times 0.003 - 0.003^2}{3 \times \beta_{1} \times \epsilon_{c'}^2}$ = 0.9281933 \\[8pt]
+
+\subsection{Calculate the strain in the existing reinforcing steel} 
+
+\tab Effective strain level in FRP $\epsilon_{fe}$ = $Min (0.003 \times (\frac{d_f-c}{c}) - \epsilon_{bi},  \epsilon_{fd})$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $Min (0.003 \times (\frac{d_f-c}{c}) - \epsilon_{bi},  \epsilon_{fd})$ = 0.0037991 \\[8pt]
+
+\subsection{Calculate the stress level in the reinforcing steel and FRP} 
+
+\tab Stress level in the FRP $f_{fe}$ = $ \epsilon_{fe} \times E_f $ \\[8pt]
+
+\tab\tab\tab\tab\tab = $ \epsilon_{fe} \times E_f $  = 626.84 MPa \\[8pt]
+
+
+\subsection{Calculate the internal forces resultants and check equilibrium} 
+
+
+\subsection{Adjust c until force equilibrium is satisfied} 
+
+\tab $c_{check}$ = $A_{s,provd} \times f_y + \frac{A_f \times f_{fe}}{\alpha_1 \times 1000 \times f_c}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $A_{s,provd} \times f_y + \frac{A_f \times f_{fe}}{\alpha_1 \times 1000 \times f_c}$ = 22.53 mm \\[8pt]
+
+\subsection{Calculation of flexural strength components} 
+
+\tab Strain in concrete due to FRP $\epsilon_FRPC$ = $Min{{\epsilon_fe + \epsilon_bi} \times {d_f-c_{check}}/c_{check}}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $Min{{\epsilon_fe + \epsilon_bi} \times {d_f-c_{check}}/c_{check}}$ = 0.003 \\[8pt]
+
+\tab Strain in existing steel due to FRP $\epsilon_FRPS$ = $\frac{(\epsilon_fe + \epsilon_bi) \times c_{check}}{d_f- c_{check}}$ \\[8pt]
+
+\tab\tab\tab\tab\tab = $\frac{(\epsilon_fe + \epsilon_bi) \times c_{check}}{d_f- c_{check}}$ = 0.0005685 \\[8pt]
+
+\tab Stress in existing steel due to FRP $\sigma_{stFRP}$ =
+$(Min{{\epsilon_{FRPS} \times 200000}, {f_y}})$ \\[8pt]
+
+\tab\tab\tab\tab\tab =
+$(Min{{\epsilon_{FRPS} \times 200000}, {f_y}})$ = 113.7 MPa \\[8pt]
+
+\tab Calculation of flexural strength \\[8pt]
+\tab$M_n$ = $(A_{s,provd} \times \sigma_{stFRP}) \times (d-(\beta_1 \times \frac{c_{check}}{2})) + 0.85 \times A_f \times f_{fe} \times (d_f - (\beta_1 \times \frac{c_{check}}{2} )) $ \\[8pt]
+
+\tab\tab= $(A_{s,provd} \times \sigma_{stFRP}) \times (d-(\beta_1 \times \frac{c_{check}}{2})) + 0.85 \times A_f \times f_{fe} \times (d_f - (\beta_1 \times \frac{c_{check}}{2} )) $  \\[8pt]
+
+\tab\tab= 90056135 Nmm \\[8pt]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
